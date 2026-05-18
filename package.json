@@ -27,6 +27,7 @@
     "mongoose": "^9.6.2",
     "nodemailer": "^8.0.7",
     "pdfkit": "^0.18.0",
+    "serverless-http": "^3.2.0",
     "winston": "^3.19.0",
     "xss": "^1.0.15",
     "xss-clean": "^0.1.4"

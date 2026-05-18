@@ -143,4 +143,8 @@ const startServer = async () => {
     app.listen(PORT, () => logger.info(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`));
 };
 
-startServer();
+if (require.main === module) {
+    startServer();
+}
+
+module.exports = app;

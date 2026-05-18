@@ -76,24 +76,41 @@ Backend runs at `http://localhost:5000`.
 
 ## Vercel Deployment
 
-This repo can deploy the frontend on Vercel as a static React app. The backend is not deployed automatically by Vercel in the current structure and should be hosted separately.
+This repo is now configured for full-stack deployment on Vercel.
 
-### Deploy frontend to Vercel
+### What it does
 
-- In Vercel, import this GitHub repo.
-- Set the project root to `client`.
-- Set Build Command to `npm install && npm run build`.
-- Set Output Directory to `dist`.
-- Add an environment variable `VITE_API_URL` pointing to your backend API base URL, for example `https://your-backend.example.com/api/v1`.
+- The React frontend is built from `client/`.
+- The Express backend is served as a Vercel serverless API under `/api/*`.
+- The app can run from a single Vercel project with shared domain routing.
 
-### If you deploy from the repo root
+### Deploy on Vercel
 
-The existing root `vercel.json` is configured to build the client from `client/` and publish `client/dist` as a static site.
+- In Vercel, import the GitHub repo `uzair592/clinicflow`.
+- Use the repository root as the project root.
+- Vercel will use `vercel.json` to build both frontend and backend.
+- No separate `client` project is required.
+
+### Environment variables
+
+Add these in Vercel Project Settings:
+
+- `MONGO_URI`
+- `JWT_ACCESS_SECRET`
+- `JWT_REFRESH_SECRET`
+- `JWT_ACCESS_EXPIRE=15m`
+- `JWT_REFRESH_EXPIRE=7d`
+- `CLIENT_URL=https://<your-vercel-url>`
+- `GEMINI_API_KEY`
+
+### API base URL in production
+
+The frontend is configured to use the same origin for API calls in production. You do not need to set `VITE_API_URL` unless you want to override the default.
 
 ### Important
 
-- The backend currently runs from `server.js` and is not Vercel-compatible without refactoring into serverless API routes.
-- For full functionality, host the backend separately and point `VITE_API_URL` to it.
+- `vercel.json` now routes `/api/*` to a serverless Express handler in `api/[...all].js`.
+- The static frontend is served from `client/dist`.
 
 ## Render Deployment
 
