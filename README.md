@@ -1,4 +1,4 @@
-# AI Clinic Management + Smart Diagnosis SaaS
+# ClinicFlow - AI Clinic Management + Smart Diagnosis SaaS
 
 A MERN clinic automation system built for the hackathon requirements. It digitizes patient records, appointments, prescriptions, medical history, analytics, subscriptions, and AI-assisted diagnosis workflows.
 
