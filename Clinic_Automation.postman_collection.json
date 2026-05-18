@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "4a7fb932-b7ca-489e-8c3d-d401a7d65681",
+		"name": "Clinic Automation API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\",\n    \"role\": \"patient\",\n    \"subscriptionPlan\": \"pro\"\n}"},
+						"url": {"raw": "http://localhost:5000/api/v1/auth/register", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "auth", "register"]}
+					}
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"},
+						"url": {"raw": "http://localhost:5000/api/v1/auth/login", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "auth", "login"]}
+					}
+				},
+				{
+					"name": "Get Me (Protected)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": {"raw": "http://localhost:5000/api/v1/auth/me", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "auth", "me"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "Create Patient",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "Bearer {{token}}"}],
+						"body": {"mode": "raw", "raw": "{\n    \"name\": \"Jane Doe\",\n    \"age\": 30,\n    \"gender\": \"female\",\n    \"contact\": \"1234567890\",\n    \"bloodGroup\": \"O+\"\n}"},
+						"url": {"raw": "http://localhost:5000/api/v1/patients", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "patients"]}
+					}
+				},
+				{
+					"name": "Get All Patients",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": {"raw": "http://localhost:5000/api/v1/patients", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "patients"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Appointments",
+			"item": [
+				{
+					"name": "Create Appointment",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "Bearer {{token}}"}],
+						"body": {"mode": "raw", "raw": "{\n    \"patientId\": \"{{patient_id}}\",\n    \"doctorId\": \"{{doctor_id}}\",\n    \"date\": \"2023-10-15T00:00:00.000Z\",\n    \"timeSlot\": \"10:00 AM\"\n}"},
+						"url": {"raw": "http://localhost:5000/api/v1/appointments", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "appointments"]}
+					}
+				},
+				{
+					"name": "Get All Appointments",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": {"raw": "http://localhost:5000/api/v1/appointments", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "appointments"]}
+					}
+				},
+				{
+					"name": "Update Appointment Status",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "Bearer {{token}}"}],
+						"body": {"mode": "raw", "raw": "{\n    \"status\": \"confirmed\"\n}"},
+						"url": {"raw": "http://localhost:5000/api/v1/appointments/{{appointment_id}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "appointments", "{{appointment_id}}"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Prescriptions",
+			"item": [
+				{
+					"name": "Create Prescription",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "Bearer {{token}}"}],
+						"body": {"mode": "raw", "raw": "{\n    \"patientId\": \"{{patient_id}}\",\n    \"doctorId\": \"{{doctor_id}}\",\n    \"medicines\": [{\"name\": \"Paracetamol\", \"dosage\": \"500mg\", \"frequency\": \"Twice daily\", \"duration\": \"5 days\"}]\n}"},
+						"url": {"raw": "http://localhost:5000/api/v1/prescriptions", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "prescriptions"]}
+					}
+				},
+				{
+					"name": "Download Prescription PDF",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": {"raw": "http://localhost:5000/api/v1/prescriptions/{{prescription_id}}/pdf", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "prescriptions", "{{prescription_id}}", "pdf"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "AI Integration",
+			"item": [
+				{
+					"name": "Symptom Check (Pro)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "Bearer {{token}}"}],
+						"body": {"mode": "raw", "raw": "{\n    \"symptoms\": [\"Fever\", \"Severe Cough\", \"Chest Pain\"],\n    \"age\": 45,\n    \"gender\": \"male\",\n    \"historyIds\": []\n}"},
+						"url": {"raw": "http://localhost:5000/api/v1/ai/symptom-check", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "v1", "ai", "symptom-check"]}
+					}
+				},
+				{
+					"name": "Explain Prescription (Pro)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/ai/explain-prescription/{{prescription_id}}?urdu=true",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "ai", "explain-prescription", "{{prescription_id}}"],
+							"query": [{"key": "urdu", "value": "true"}]
+						}
+					}
+				}
+			]
+		}
+	]
+}
