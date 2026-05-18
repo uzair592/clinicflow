@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const xss = require('xss');
+const path = require('path');
+const fs = require('fs');
 
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
@@ -112,6 +114,14 @@ app.use('/api/v1/subscriptions', subscriptionRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/audit-logs', auditLogRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
+
+const clientBuildPath = path.join(__dirname, 'client', 'dist');
+if (fs.existsSync(clientBuildPath)) {
+    app.use(express.static(clientBuildPath));
+    app.get(/^\/(?!api\/).*/, (req, res) => {
+        res.sendFile(path.join(clientBuildPath, 'index.html'));
+    });
+}
 
 // Error handler (fallback)
 app.use((err, req, res, next) => {

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import useAuthStore from '../store/useAuthStore';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000/api/v1' : '/api/v1');
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
+  baseURL: API_BASE_URL,
   withCredentials: true, // For httpOnly cookies if used
 });
 
@@ -52,7 +54,7 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1'}/auth/refresh-token`, {
+        const { data } = await axios.get(`${API_BASE_URL}/auth/refresh-token`, {
           withCredentials: true
         });
 

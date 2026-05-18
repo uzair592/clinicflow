@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
+    "build": "cd client && npm ci && npm run build",
+    "postinstall": "npm run build",
     "test": "node --check server.js && node --check controllers/analyticsController.js && node --check controllers/subscriptionController.js && node --check middleware/subscriptionMiddleware.js"
   },
   "keywords": [],
